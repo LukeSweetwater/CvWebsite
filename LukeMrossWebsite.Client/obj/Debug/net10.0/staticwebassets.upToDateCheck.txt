@@ -1,0 +1,9 @@
+wwwroot\data\Luke_CV_2026.pdf
+wwwroot\images\me1.jpg
+wwwroot\images\me2.jpg
+wwwroot\data\bio.txt
+wwwroot\appsettings.Development.json
+wwwroot\appsettings.json
+C:\Users\lukem\Documents\GitHub\LukeMrossWebsite\LukeMrossWebsite.Client\wwwroot\appsettings.Development.json
+C:\Users\lukem\Documents\GitHub\LukeMrossWebsite\LukeMrossWebsite.Client\wwwroot\appsettings.json
+C:\Users\lukem\Documents\GitHub\LukeMrossWebsite\LukeMrossWebsite.Client\wwwroot\data\bio.txt

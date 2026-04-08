@@ -1,0 +1,129 @@
+﻿@inherits LayoutComponentBase
+
+<MudThemeProvider Theme="@_theme" IsDarkMode="_isDarkMode" />
+<MudPopoverProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+    <MudAppBar Elevation="1" Color="Color.Primary" Fixed="true">
+
+        <MudSpacer />
+
+        <MudButton Href="#bio" Color="Color.Secondary">Bio</MudButton>
+        <MudButton Href="#history" Color="Color.Secondary">History</MudButton>
+        <MudButton Href="#certs" Color="Color.Secondary">Certs</MudButton>
+        <MudButton Href="#contact" Color="Color.Secondary">Contact</MudButton>
+
+        <MudSpacer />
+
+        <MudIconButton Icon="@DarkLightModeButtonIcon" Color="Color.Inherit" OnClick="@DarkModeToggle" aria-label="Toggle dark mode" />
+
+    </MudAppBar>
+
+    <MudMainContent>
+        @Body
+
+        <MudPaper Elevation="0" Square="true" Class="d-flex flex-column align-center py-8 mt-16" Style="background-color: transparent; border-top: 1px solid var(--mud-palette-divider);">
+            
+            <div class="d-flex gap-4 mb-2">
+                <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Href="https://github.com/your-username" Target="_blank" Color="Color.Inherit" aria-label="GitHub" />
+                <MudIconButton Icon="@Icons.Custom.Brands.LinkedIn" Href="https://linkedin.com/in/your-username" Target="_blank" Color="Color.Inherit" aria-label="LinkedIn" />
+            </div>
+
+            <MudText Typo="Typo.body2" Style="color: var(--mud-palette-text-secondary);">
+                &copy; @DateTime.Now.Year Luke Mross
+            </MudText>
+
+            <MudText Typo="Typo.body2" Style="color: var(--mud-palette-text-secondary);">
+                Proudly built using Microsoft .NET Blazor
+            </MudText>
+
+            <MudText Typo="Typo.caption" Style="color: var(--mud-palette-text-secondary);">
+                Colour Palette: @(_isDarkMode ? "Tropical Jade Night" : "Tropical Jade Sunrise")
+            </MudText>
+
+        </MudPaper>
+    </MudMainContent>
+</MudLayout>
+
+
+<div id="blazor-error-ui" data-nosnippet>
+    An unhandled error has occurred.
+    <a href="." class="reload">Reload</a>
+    <span class="dismiss">🗙</span>
+</div>
+
+@code {
+    private bool _drawerOpen = true;
+    private bool _isDarkMode = false;
+    private MudTheme? _theme = null;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        _theme = new()
+        {
+            PaletteLight = _lightPalette,
+            PaletteDark = _darkPalette,
+            LayoutProperties = new LayoutProperties()
+        };
+    }
+
+    private void DrawerToggle()
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+
+    private void DarkModeToggle()
+    {
+        _isDarkMode = !_isDarkMode;
+    }
+
+    private readonly PaletteLight _lightPalette = new()
+    {
+        Primary = "#097C87",       // Deep Jade
+        Secondary = "#FCA47C",     // Sunrise Peach
+        Tertiary = "#F9D779",      // Sunrise Yellow
+        Info = "#23CED9",          // Bright Cyan
+        Success = "#A1CCA6",       // Muted Green
+        
+        // Keeping backgrounds clean so the colors pop
+        Background = "#FAFAFA",
+        Surface = "#FFFFFF",
+        AppbarBackground = "#097C87", // Using your Primary for the top nav
+        AppbarText = "#FFFFFF",
+        TextPrimary = "#2D3748",
+        TextSecondary = "#718096",
+        DrawerBackground = "#FAFAFA",
+        Divider = "#E2E8F0"
+    };
+
+    private readonly PaletteDark _darkPalette = new()
+    {
+        Primary = "#23CED9",
+        Secondary = "#FCA47C",
+        Tertiary = "#F9D779",
+        Info = "#097C87",
+        Success = "#A1CCA6",
+        
+        // "Tropical Night" backgrounds
+        Background = "#0B1519",
+        Surface = "#14252B",
+        AppbarBackground = "rgba(11, 21, 25, 0.85)",
+        AppbarText = "#FFFFFF",
+        TextPrimary = "#F8FAFC",
+        TextSecondary = "#94A3B8",
+        DrawerBackground = "#0B1519",
+        Divider = "#1F3841"
+    };
+
+    public string DarkLightModeButtonIcon => _isDarkMode switch
+    {
+        true => Icons.Material.Rounded.AutoMode,
+        false => Icons.Material.Outlined.DarkMode,
+    };
+}
+
+

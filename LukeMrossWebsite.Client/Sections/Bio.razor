@@ -1,0 +1,80 @@
+﻿@inject HttpClient Http
+
+<section id="bio" style="min-height: 100vh; padding-top: 80px;" class="d-flex align-center">
+    <MudContainer MaxWidth="MaxWidth.Large">
+        <MudGrid Spacing="6" Justify="Justify.Center" AlignItems="Center">
+            
+            <MudItem xs="12" md="4">
+                <MudCarousel TData="object" Class="mud-width-full rounded-lg mud-elevation-3" Style="height: 500px;"
+                             ShowArrows="false" ShowBullets="true" AutoCycle="true" AutoCycleTime="TimeSpan.FromSeconds(5)">
+                    
+                    <MudCarouselItem Transition="Transition.Fade">
+                        <MudImage Src="images/me1.jpg" Alt="Luke Portrait 1" ObjectFit="ObjectFit.Cover" Class="mud-width-full mud-height-full" />
+                    </MudCarouselItem>
+                    
+                    <MudCarouselItem Transition="Transition.Fade">
+                        <MudImage Src="images/me2.jpg" Alt="Luke Portrait 2" ObjectFit="ObjectFit.Cover" Class="mud-width-full mud-height-full" />
+                    </MudCarouselItem>
+
+                </MudCarousel>
+            </MudItem>
+
+            <MudItem xs="12" md="8">
+                <MudPaper Elevation="3" Class="pa-8 rounded-lg">
+                    <MudText Typo="Typo.h3" Color="Color.Primary" GutterBottom="true">
+                        <b>Hi, I'm Luke.</b>
+                    </MudText>
+                    
+                    <MudText Typo="Typo.h5" Color="Color.Secondary" GutterBottom="true">
+                        Software Developer & Tech Enthusiast
+                    </MudText>
+                    
+                    <MudDivider Class="my-4" />
+
+                    @if (_isLoading)
+                    {
+                        <MudSkeleton SkeletonType="SkeletonType.Text" Height="24px" Width="100%" />
+                        <MudSkeleton SkeletonType="SkeletonType.Text" Height="24px" Width="90%" Class="mb-4" />
+                        <MudSkeleton SkeletonType="SkeletonType.Text" Height="24px" Width="95%" />
+                    }
+                    else
+                    {
+                        <MudText Typo="Typo.body1" Class="mb-6" Style="white-space: pre-wrap;">@_bioText</MudText>
+                    }
+
+                    <div class="d-flex flex-wrap gap-4">
+                        <MudButton Href="#contact" Variant="Variant.Filled" Color="Color.Primary" Size="Size.Large" EndIcon="@Icons.Material.Filled.ArrowDownward">
+                            Get In Touch
+                        </MudButton>
+
+                        <MudButton Href="data/Luke_CV_2026.pdf" target="_blank" Variant="Variant.Filled" Color="Color.Secondary" Size="Size.Large" EndIcon="@Icons.Material.Filled.OpenInNew">
+                            View CV
+                        </MudButton>
+                    </div>
+                </MudPaper>
+            </MudItem>
+
+        </MudGrid>
+    </MudContainer>
+</section>
+
+@code{
+    private string _bioText = string.Empty;
+    private bool _isLoading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            _bioText = await Http.GetStringAsync("data/bio.txt");
+        }
+        catch (Exception ex)
+        {
+            _bioText = "Whoops! Couldn't load the bio text right now.";
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+}
