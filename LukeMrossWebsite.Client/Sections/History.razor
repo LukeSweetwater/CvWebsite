@@ -1,8 +1,133 @@
-<section id="history" style="min-height: 100vh; padding-top: 80px;">
+@inject HttpClient Http
+@using System.Net.Http.Json
+
+<section id="history" style="min-height: 100vh; padding-top: 80px;" class="d-flex flex-column justify-center">
     <MudContainer MaxWidth="MaxWidth.Large">
-        <MudText Typo="Typo.h2" GutterBottom="true">History</MudText>
-        <MudText Typo="Typo.body1">
-            History goes here
+        
+        <MudText Typo="Typo.h3" Color="Color.Primary" GutterBottom="true" Align="Align.Center">
+            <b>Career History</b>
         </MudText>
+        <MudDivider Class="mb-8" />
+
+        @if (_isLoading)
+        {
+            <div class="d-flex justify-center my-8">
+                <MudProgressCircular Color="Color.Primary" Indeterminate="true" Size="Size.Large" />
+            </div>
+        }
+        else if (_projects != null && _projects.Any())
+        {
+            <MudHidden Breakpoint="Breakpoint.SmAndDown">
+                <MudCarousel TData="object" AutoCycle="false" ShowArrows="true" ShowBullets="true" Class="mud-width-full py-4" Style="height: 450px;">
+                    @foreach (var chunk in _projects.Chunk(2))
+                    {
+                        <MudCarouselItem Transition="Transition.Slide">
+                            <MudGrid Spacing="6" Class="px-12" Justify="Justify.Center" AlignItems="Center">
+                                @foreach (var project in chunk)
+                                {
+                                    <MudItem xs="6">
+                                        <MudCard Elevation="3" Class="rounded-lg d-flex flex-column" Style="height: 350px;">
+                                            <MudCardHeader>
+                                                <CardHeaderAvatar>
+                                                    <MudImage Src="@project.LogoUrl"
+                                                              Alt="@project.CompanyName"
+                                                              ObjectFit="ObjectFit.Contain"
+                                                              Height="112"
+                                                              Width="112"
+                                                              Class="rounded-circle pa-1"
+                                                              Style="border: 2px solid var(--mud-palette-primary); background-color: white;" />
+                                                </CardHeaderAvatar>
+                                                <CardHeaderContent>
+                                                    <MudText Typo="Typo.h5"><b>@project.CompanyName</b></MudText>
+                                                </CardHeaderContent>
+                                            </MudCardHeader>
+                                            <MudCardContent Class="flex-grow-1">
+                                                <MudText Typo="Typo.body2" Style="border-top: 2px var(--mud-palette-divider); padding-top: 16px;">
+                                                    @project.Description
+                                                </MudText>
+                                            </MudCardContent>
+                                            <MudCardActions Class="justify-center pb-4">
+                                                <MudText Typo="Typo.caption" Style="font-style: italic; color: var(--mud-palette-text-secondary);">
+                                                    @project.IndustrySector
+                                                </MudText>
+                                            </MudCardActions>
+                                        </MudCard>
+                                    </MudItem>
+                                }
+                            </MudGrid>
+                        </MudCarouselItem>
+                    }
+                </MudCarousel>
+            </MudHidden>
+
+            <MudHidden Breakpoint="Breakpoint.MdAndUp">
+                <MudCarousel TData="object" AutoCycle="false" ShowArrows="true" ShowBullets="true" Class="mud-width-full py-2" Style="height: 450px;">
+                    @foreach (var project in _projects)
+                    {
+                        <MudCarouselItem Transition="Transition.Slide">
+                            <MudGrid Spacing="0" Class="px-8" Justify="Justify.Center" AlignItems="Center">
+                                <MudItem xs="12">
+                                    <MudCard Elevation="3" Class="rounded-lg d-flex flex-column" Style="height: 350px;">
+                                        <MudCardHeader>
+                                            <CardHeaderAvatar>
+                                                <MudImage Src="@project.LogoUrl"
+                                                          Alt="@project.CompanyName"
+                                                          ObjectFit="ObjectFit.Contain"
+                                                          Height="112"
+                                                          Width="112"
+                                                          Class="rounded-circle pa-1"
+                                                          Style="border: 2px solid var(--mud-palette-primary); background-color: white;" />
+                                            </CardHeaderAvatar>
+                                            <CardHeaderContent>
+                                                <MudText Typo="Typo.h5"><b>@project.CompanyName</b></MudText>
+                                            </CardHeaderContent>
+                                        </MudCardHeader>
+                                        <MudCardContent Class="flex-grow-1">
+                                            <MudText Typo="Typo.body2" Style="border-top: 2px var(--mud-palette-divider); padding-top: 16px;">
+                                                @project.Description
+                                            </MudText>
+                                        </MudCardContent>
+                                        <MudCardActions Class="justify-center pb-4">
+                                            <MudText Typo="Typo.caption" Style="font-style: italic; color: var(--mud-palette-text-secondary);">
+                                                @project.IndustrySector
+                                            </MudText>
+                                        </MudCardActions>
+                                    </MudCard>
+                                </MudItem>
+                            </MudGrid>
+                        </MudCarouselItem>
+                    }
+                </MudCarousel>
+            </MudHidden>
+        }
     </MudContainer>
 </section>
+
+@code {
+    private List<ProjectItem>? _projects;
+    private bool _isLoading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            _projects = await Http.GetFromJsonAsync<List<ProjectItem>>("data/history.json");
+        }
+        catch (Exception)
+        {
+            _projects = new List<ProjectItem>();
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+
+    public class ProjectItem
+    {
+        public string CompanyName { get; set; } = string.Empty;
+        public string LogoUrl { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
+        public string IndustrySector { get; set; } = string.Empty;
+    }
+}

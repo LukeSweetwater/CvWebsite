@@ -1,0 +1,32 @@
+[
+  {
+    "CompanyName": "First National Bank (FNB)",
+    "LogoUrl": "images/fnb-logo.png",
+    "Description": "Developing new internal tools to assist with large-sum business loans and integrating with Finxact ecosystem.",
+    "IndustrySector": "Banking / Fintech"
+  },
+  {
+    "CompanyName": "Sayf by Tracker",
+    "LogoUrl": "images/sayf-logo.jpg",
+    "Description": "Development of mobile app used for monitoring and safety of loved ones.",
+    "IndustrySector": "Tracking & Personal Safety"
+  },
+  {
+    "CompanyName": "Telesure",
+    "LogoUrl": "images/telesure-logo.png",
+    "Description": "Development of internal tools used to assist claims agents for looking up customer details and claims.",
+    "IndustrySector": "Insurance"
+  },
+  {
+    "CompanyName": "Massar",
+    "LogoUrl": "images/massar-logo.jpg",
+    "Description": "Building of an admin portal for employees to access and manage vehicle fleet.",
+    "IndustrySector": "Vehicle Leasing"
+  },
+  {
+    "CompanyName": "Flexi Club",
+    "LogoUrl": "images/flexi-logo.png",
+    "Description": "Development of website for users to search and book holiday's at South African resorts.",
+    "IndustrySector": "Holiday & Resorts"
+  }
+]
