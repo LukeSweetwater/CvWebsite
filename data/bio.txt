@@ -1,0 +1,4 @@
+I am a software developer who takes pride in writing clean, functional code. Throughout my career I have consulted for companies in numerous industries ranging from fintech, to insurance, and auto, working with both local and international clients.
+
+I find my comfort zone in all things in the Microsoft technology stack, particularly in .NET and C#, but am always willing to push the bounds of my knowledge by exploring other technologies. I am a happy-go-lucky type of person and always enjoy collaborating with others; whether it be brainstorming ideas, peer programming, or teaching others. I have learned that no man is an island and that collaboration is the key to building brilliant software. To quote Ray Kroc: 
+"None of Us is as good as All of Us."
