@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
-VisualStudioVersion = 18.4.11626.88 stable
+VisualStudioVersion = 18.4.11626.88
 MinimumVisualStudioVersion = 16.0.0.0
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LukeMrossWebsite", "LukeMrossWebsite\LukeMrossWebsite.csproj", "{3017DDF0-EB6C-4D7D-9D3C-0DF094E53552}"
 EndProject

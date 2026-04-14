@@ -1,8 +1,48 @@
-<section id="certs" style="min-height: 100vh; padding-top: 80px;">
+<section id="certs" style="min-height: 100vh; padding-top: 80px;" class="d-flex align-center">
     <MudContainer MaxWidth="MaxWidth.Large">
-        <MudText Typo="Typo.h2" GutterBottom="true">Certs</MudText>
-        <MudText Typo="Typo.body1">
-            Certs go here
+        
+        <MudText Typo="Typo.h3" Color="Color.Primary" GutterBottom="true" Align="Align.Center">
+            <b>Certifications</b>
         </MudText>
+        <MudDivider Class="mb-12" />
+
+        <MudGrid Spacing="6" Justify="Justify.Center" AlignItems="Center">
+            
+            <MudItem xs="12" sm="6" Class="d-flex flex-column align-center">
+                <MudImage Src="images/aws-cert-badge.png"
+                          Alt="AWS Certified Cloud Practitioner Badge"
+                          Height="250"
+                          ObjectFit="ObjectFit.Contain"
+                          Class="mb-6" />
+                
+                <MudLink Href="https://aws.amazon.com/certification/certified-cloud-practitioner/"
+                         Target="_blank"
+                         Underline="Underline.Hover"
+                         Color="Color.Secondary"
+                         Typo="Typo.h6"
+                         Class="text-center">
+                    <b>AWS Certified Cloud Practitioner Foundational</b>
+                </MudLink>
+            </MudItem>
+
+            <MudItem xs="12" sm="6" Class="d-flex flex-column align-center">
+                <MudImage Src="images/azure-az900-badge.png"
+                          Alt="Microsoft Azure AZ-900 Badge"
+                          Height="250"
+                          ObjectFit="ObjectFit.Contain"
+                          Class="mb-6" />
+                
+                <MudLink Href="https://learn.microsoft.com/en-us/credentials/certifications/azure-fundamentals/"
+                         Target="_blank"
+                         Underline="Underline.Hover"
+                         Color="Color.Secondary"
+                         Typo="Typo.h6"
+                         Class="text-center">
+                    <b>Microsoft Certified: Azure Fundamentals (AZ-900)</b>
+                </MudLink>
+            </MudItem>
+
+        </MudGrid>
+        
     </MudContainer>
 </section>
