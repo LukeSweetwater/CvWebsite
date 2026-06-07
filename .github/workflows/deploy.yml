@@ -1,0 +1,42 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    # 1. Checkout the code
+    - uses: actions/checkout@v4
+
+    # 2. Setup .NET 10 (Matching your local environment)
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '10.0.x'
+
+    # 3. Publish the Blazor WebAssembly app
+    - name: Publish with dotnet
+      run: dotnet publish LukeMrossWebsite.Client/LukeMrossWebsite.Client.csproj -c Release -o release --nologo
+
+    # 4. Rewrite the base href so routing works on the GitHub Pages subfolder
+    - name: Change base-tag in index.html
+      run: sed -i 's/<base href="\/" \/>/<base href="\/CvWebsite\/" \/>/g' release/wwwroot/index.html
+
+    # 5. Fix SPA routing and GitHub Pages Jekyll quirks
+    - name: Add .nojekyll and 404.html
+      run: |
+        touch release/wwwroot/.nojekyll
+        cp release/wwwroot/index.html release/wwwroot/404.html
+
+    # 6. Deploy the compiled wwwroot folder to the gh-pages branch
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: release/wwwroot
